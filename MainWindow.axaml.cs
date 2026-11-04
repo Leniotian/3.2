@@ -25,13 +25,20 @@ public partial class MainWindow : Window
         if (!File.Exists(NotesFilePath))
             return;
 
-        var lines = File.ReadAllLines(NotesFilePath, Encoding.UTF8);
-        foreach (var line in lines)
+        try
         {
-            if (line.StartsWith("## "))
+            var lines = File.ReadAllLines(NotesFilePath, Encoding.UTF8);
+            foreach (var line in lines)
             {
-                _notes.Add(line.Substring(3));
+                if (line.StartsWith("## "))
+                {
+                    _notes.Add(line.Substring(3));
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            StatusText.Text = $"Nie udało się wczytać notatek: {ex.Message}";
         }
     }
 
@@ -41,21 +48,32 @@ public partial class MainWindow : Window
         var content = ContentBox.Text?.Trim() ?? string.Empty;
 
         if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(content))
+        {
+            StatusText.Text = "Podaj tytuł lub treść notatki.";
             return;
+        }
 
         var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
         var newEntry = $"## {timestamp} — {title}\n{content}\n";
 
-        var existingContent = File.Exists(NotesFilePath) ? File.ReadAllText(NotesFilePath, Encoding.UTF8) : string.Empty;
-        var updatedContent = string.IsNullOrEmpty(existingContent)
-            ? newEntry
-            : newEntry + "\n" + existingContent.TrimStart('\r', '\n');
+        try
+        {
+            var existingContent = File.Exists(NotesFilePath) ? File.ReadAllText(NotesFilePath, Encoding.UTF8) : string.Empty;
+            var updatedContent = string.IsNullOrEmpty(existingContent)
+                ? newEntry
+                : newEntry + "\n" + existingContent.TrimStart('\r', '\n');
 
-        File.WriteAllText(NotesFilePath, updatedContent, Encoding.UTF8);
+            File.WriteAllText(NotesFilePath, updatedContent, Encoding.UTF8);
+            StatusText.Text = "Zapisano";
 
-        _notes.Insert(0, $"{timestamp} — {title}");
+            _notes.Insert(0, $"{timestamp} — {title}");
 
-        TitleBox.Text = string.Empty;
-        ContentBox.Text = string.Empty;
+            TitleBox.Text = string.Empty;
+            ContentBox.Text = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            StatusText.Text = $"Nie udało się zapisać: {ex.Message}";
+        }
     }
 }

@@ -6,16 +6,20 @@
         x:Class="notatnik.MainWindow"
         Title="Notatnik"
         Width="700" Height="500">
-    <Grid Margin="15" RowDefinitions="Auto,Auto,*,Auto,Auto,*" ColumnDefinitions="*">
+    <Grid Margin="15" RowDefinitions="Auto,Auto,*,Auto,Auto,Auto,*" ColumnDefinitions="*">
         <TextBlock Grid.Row="0" Text="Tytuł:" FontWeight="Bold" Margin="0,0,0,5"/>
         <TextBox Grid.Row="1" Name="TitleBox" PlaceholderText="Wpisz tytuł notatki..." Margin="0,0,0,10"/>
 
         <TextBlock Grid.Row="2" Text="Treść:" FontWeight="Bold" Margin="0,0,0,5"/>
         <TextBox Grid.Row="3" Name="ContentBox" AcceptsReturn="True" TextWrapping="Wrap" Height="100" PlaceholderText="Wpisz treść..." Margin="0,0,0,10"/>
 
-        <Button Grid.Row="4" Name="SaveButton" Content="Zapisz notatkę" Click="SaveButton_Click" HorizontalAlignment="Left" Margin="0,0,0,15"/>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="10" Margin="0,0,0,10">
+            <Button Name="SaveButton" Content="Zapisz notatkę" Click="SaveButton_Click"/>
+        </StackPanel>
 
-        <DockPanel Grid.Row="5">
+        <TextBlock Grid.Row="5" Name="StatusText" Margin="0,0,0,10" Foreground="Gray"/>
+
+        <DockPanel Grid.Row="6">
             <TextBlock DockPanel.Dock="Top" Text="Zapisane notatki:" FontWeight="Bold" Margin="0,0,0,5"/>
             <ListBox Name="NotesList"/>
         </DockPanel>
