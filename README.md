@@ -48,11 +48,13 @@ Znaczna część różnic obserwowanych na początku między rundami 1–4 (np. 
 
 ```
 3.1 zadanie/
+├── dziennik.md               # Dziennik weryfikacji (zadanie 3.4)
 ├── MainWindow.axaml          # Interfejs z polami, przyciskiem i kontrolką StatusText
 ├── MainWindow.axaml.cs       # Logika zapisu na górę pliku, kodowanie UTF-8, try-catch
 ├── notatki.md                # Plik wynikowy z notatkami w wymaganym formacie
-├── notatnik.csproj           # Plik projektu Avalonia (.NET 10)
+├── notatnik.csproj           # Plik projektu Avalonia (.NET 9)
 ├── README.md                 # Wnioski, analiza powtórki i zalecenie Google
+├── rozbierz-to.md            # Analiza błędów kodu agenta i weryfikacja (zadanie 3.4)
 └── rundy/
     ├── runda-1.md            # Sama prośba (Zero-shot)
     ├── runda-1-powtorka.md   # Powtórzenie rundy 1 bez zmian w prośbie
